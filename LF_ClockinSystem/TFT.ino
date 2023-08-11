@@ -1,6 +1,9 @@
 // DECLARATIONS V -----------------------------------------------------------
 // INCLUDES
+// Libraries
 #include <TFT_eSPI.h>
+// Images (to RGB565)
+#include "LiveFlowLogo.h"
 
 // CONSTANTS
 // Screen details
@@ -22,12 +25,16 @@ TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight);
 // Initialize TFT screen
 void initTFT() {
   tft.init();
-  tft.fillScreen(TFT_WHITE);
   tft.setRotation(1);
+
+  tft.fillScreen(TFT_WHITE);
+  tft.pushImage(tft.width() / 2 - (240) / 2, tft.height() / 2 - (62) / 2, 240, 62, LIVE_FLOW_LOGO_DEF);
+  delay(5000);
 }
 
 // Update TFT screen
 void updateTFT() {
+  tft.fillScreen(TFT_WHITE);
   updateTFTConnectivity();
   updateTFTTag();
 }
@@ -40,7 +47,7 @@ void updateTFTConnectivity() {
   tft.setTextSize(1);
 
   // WiFi connected
-  tft.setCursor(0, bottom(2));
+  tft.setCursor(1, bottom(2, 1));
   tft.setTextColor(TFT_LIVEFLOW_TEXTGRAY);
   tft.print("WiFi:");
   tft.setCursor(space(), tft.getCursorY());
@@ -48,7 +55,7 @@ void updateTFTConnectivity() {
   tft.print(WiFiConnected ? "Connected" : "Disconnected");
 
   // Logged in
-  tft.setCursor(0, newLine());
+  tft.setCursor(1, newLine());
   tft.setTextColor(TFT_LIVEFLOW_TEXTGRAY);
   tft.print("Logged in:");
   tft.setCursor(space(), tft.getCursorY());
@@ -65,6 +72,11 @@ void updateTFTTag() {
 
   tft.setCursor(middleX("Waiting for tag..."), middleY());
   tft.print("Waiting for tag...");
+
+  int y = newLine();
+  tft.setTextSize(1);
+  tft.setCursor(middleX(tagId), y);
+  tft.print(tagId);
 }
 
 // HELP FUNCTIONS
@@ -89,6 +101,6 @@ int newLine() {
 }
 
 // Return Y value from where to write from when you want your lowest textline to be connected to the bottom of the screen
-int bottom(byte lines) {
-  return tft.height() - (tft.fontHeight() * lines) - (2 * (lines - 1));
+int bottom(byte lines, byte spaceFromBottom) {
+  return tft.height() - (tft.fontHeight() * lines) - (2 * (lines - 1)) - spaceFromBottom;
 }
