@@ -21,7 +21,6 @@ const int screenHeight = 240;
 TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight);
 
 // FUNCTIONS V --------------------------------------------------------------
-// MAIN FUNCTIONS
 // Initialize TFT screen
 void initTFT() {
   tft.init();
@@ -39,7 +38,6 @@ void updateTFT() {
   updateTFTTag();
 }
 
-// SUB FUNCTIONS
 // Update connectivity part of TFT screen
 void updateTFTConnectivity() {
   // Text settings

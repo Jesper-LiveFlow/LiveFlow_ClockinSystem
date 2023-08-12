@@ -16,12 +16,19 @@ String tagId = "None";
 void setup() {
   Serial.begin(115200);
 
-  initNFC();
+  // initNFC();
   initTFT();
 }
 
 // Run forever
 void loop() {
+  if(!isWiFiConnected()) {
+    WiFiConnected = false;
+    connectWiFi();
+  }
+  else {
+    WiFiConnected = true;
+  }
   updateTFT();
-  readNFC();
+  // readNFC();
 }
