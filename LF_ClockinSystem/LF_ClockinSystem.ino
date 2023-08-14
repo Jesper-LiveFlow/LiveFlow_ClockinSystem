@@ -1,6 +1,7 @@
 // DECLARATIONS V -----------------------------------------------------------
 // INCLUDES
-// ...
+// Self created
+#include "NoDelayDelay.h"
 
 // CONSTANTS
 // Connectivity
@@ -8,6 +9,7 @@ bool WiFiConnected = true;
 bool loggedIn = true;
 
 // VARIABLES
+bool updateNFT = true;
 String tagId = "None";
 
 // FUNCTIONS V --------------------------------------------------------------
@@ -29,6 +31,8 @@ void loop() {
   else {
     WiFiConnected = true;
   }
-  updateTFT();
-  // readNFC();
+
+  if(updateNFT) {
+    updateTFT();
+  }
 }

@@ -7,7 +7,8 @@
 const String WF_SSID = "Weijnen";
 const String WF_PASSWORD = "Paul19683!";
 
-unsigned long myTime = millis();
+// OBJECTS
+NoDelayDelay connectWiFiDelay(2000);
 
 // FUNCTIONS V --------------------------------------------------------------
 
@@ -16,8 +17,7 @@ bool isWiFiConnected() {
 }
 
 void connectWiFi() {
-  if(millis() - myTime >= 1500) {
-    myTime = millis();
+  if(connectWiFiDelay.check()) {
     // WiFi.begin(WF_SSID, WF_PASSWORD);
     Serial.println("Test");
   }

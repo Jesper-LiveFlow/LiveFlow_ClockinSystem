@@ -18,13 +18,17 @@ const int screenHeight = 240;
 #define TFT_LIVEFLOW_TEXTGRAY 0x3a0a
 
 // OBJECTS
+// Screen
 TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight);
+// Sprite
+TFT_eSprite screen = TFT_eSprite(&tft);
 
 // FUNCTIONS V --------------------------------------------------------------
 // Initialize TFT screen
 void initTFT() {
   tft.init();
   tft.setRotation(1);
+  screen.createSprite(screenWidth, screenHeight);
 
   tft.fillScreen(TFT_WHITE);
   tft.pushImage(tft.width() / 2 - (240) / 2, tft.height() / 2 - (62) / 2, 240, 62, LIVE_FLOW_LOGO_DEF);
@@ -36,6 +40,8 @@ void updateTFT() {
   tft.fillScreen(TFT_WHITE);
   updateTFTConnectivity();
   updateTFTTag();
+
+  updateNFT = false;
 }
 
 // Update connectivity part of TFT screen
